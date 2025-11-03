@@ -19,7 +19,6 @@ app.use(helmet());
 app.use(cors());
 app.use(express.json());
 
-//rate limiting
 const ratelimitOptions = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 100,
@@ -55,7 +54,6 @@ const proxyOptions = {
   },
 };
 
-//setting up proxy for our identity service
 app.use(
   "/v1/auth",
   proxy(process.env.IDENTITY_SERVICE_URL, {
@@ -95,7 +93,6 @@ app.use(
   })
 );
 
-
 app.use(
   "/v1/media",
   validateToken,
@@ -120,7 +117,6 @@ app.use(
   })
 );
 
-//setting up proxy for our search service
 app.use(
   "/v1/search",
   validateToken,

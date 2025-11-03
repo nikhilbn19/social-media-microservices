@@ -12,7 +12,6 @@ const { connectToRabbitMQ } = require("./utils/rabbitmq");
 const app = express();
 const PORT = process.env.PORT || 3002;
 
-//connect to mongodb
 mongoose
   .connect(process.env.MONGODB_URI)
   .then(() => logger.info("Connected to mongodb"))
@@ -20,7 +19,6 @@ mongoose
 
 const redisClient = new Redis(process.env.REDIS_URL);
 
-//middleware
 app.use(helmet());
 app.use(cors());
 app.use(express.json());
@@ -31,9 +29,6 @@ app.use((req, res, next) => {
   next();
 });
 
-//*** Homework - implement Ip based rate limiting for sensitive endpoints
-
-//routes -> pass redisclient to routes
 app.use(
   "/api/posts",
   (req, res, next) => {
@@ -58,8 +53,6 @@ async function startServer() {
 }
 
 startServer();
-
-//unhandled promise rejection
 
 process.on("unhandledRejection", (reason, promise) => {
   logger.error("Unhandled Rejection at", promise, "reason:", reason);

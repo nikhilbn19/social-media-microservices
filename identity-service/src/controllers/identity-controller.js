@@ -4,11 +4,9 @@ const generateTokens = require("../utils/generateToken");
 const logger = require("../utils/logger");
 const { validateRegistration, validatelogin } = require("../utils/validation");
 
-
 const registerUser = async (req, res) => {
   logger.info("Registration endpoint hit...");
   try {
-    //validate the schema
     const { error } = validateRegistration(req.body);
     if (error) {
       logger.warn("Validation error", error.details[0].message);
@@ -71,7 +69,6 @@ const loginUser = async (req, res) => {
       });
     }
 
-    // user valid password or not
     const isValidPassword = await user.comparePassword(password);
     if (!isValidPassword) {
       logger.warn("Invalid password");
@@ -112,7 +109,7 @@ const refreshTokenUser = async (req, res) => {
     const storedToken = await RefreshToken.findOne({ token: refreshToken });
 
     //const storedToken = await RefreshToken.deleteOne({ token: refreshToken });
-    
+
     if (!storedToken) {
       logger.warn("Invalid refresh token provided");
       return res.status(400).json({
@@ -174,7 +171,7 @@ const logoutUser = async (req, res) => {
       });
     }
 
-   const storedToken = await RefreshToken.findOneAndDelete({
+    const storedToken = await RefreshToken.findOneAndDelete({
       token: refreshToken,
     });
     if (!storedToken) {
