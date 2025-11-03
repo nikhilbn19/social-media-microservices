@@ -77,7 +77,7 @@ It includes independent services for **Identity**, **Post**, **Media**, and **Se
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/your-username/social-media-microservices.git
+   git clone https://github.com/nikhilbn19/social-media-microservices.git
    cd social-media-microservices
    ```
 
