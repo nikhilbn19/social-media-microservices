@@ -13,7 +13,9 @@ const { validateToken } = require("./middleware/authMiddleware");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const redisClient = new Redis(process.env.REDIS_URL);
+const redisClient = new Redis(process.env.REDIS_URL, {
+  tls: {},
+});
 
 app.use(helmet());
 app.use(cors());

@@ -23,7 +23,9 @@ app.use(helmet());
 app.use(cors());
 app.use(express.json());
 
-const redisClient = new Redis(process.env.REDIS_URL);
+const redisClient = new Redis(process.env.REDIS_URL, {
+  tls: {},
+});
 
 app.use((req, res, next) => {
   logger.info(`Received ${req.method} request to ${req.url}`);
